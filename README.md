@@ -7,3 +7,6 @@
 - รัน `supabase/migrations/002_phase2.sql`
 - ตั้ง env บน Vercel: `SUPABASE_SERVICE_ROLE_KEY`, `LINE_CHANNEL_ACCESS_TOKEN`, `CRON_SECRET` (Vercel ส่ง CRON_SECRET เป็น Bearer ให้ cron อัตโนมัติ)
 - Cron ทำงานทุกวัน 08:00 น. (เวลาไทย) ตาม `vercel.json`
+## Phase 2 (ส่วนที่เหลือ)
+- รัน `003_phase2_complete.sql`, ตั้ง `LINE_CHANNEL_SECRET` แล้วตั้ง Webhook URL ใน LINE Developers เป็น `https://<โดเมน>/api/line/webhook`
+- ตั้งค่า PromptPay ที่หน้า "ตั้งค่าร้าน" จึงจะมี QR ในหน้าลูกค้า
