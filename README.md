@@ -16,3 +16,6 @@
 ## Phase 3
 - รัน `005_phase3_ai.sql` และตั้ง `GEMINI_API_KEY` (เลือกโมเดลเองได้ด้วย `GEMINI_MODEL`)
 - ค้นหาร้านตามความหมาย: `GET /api/geo/search?q=ช่างไฟใกล้ฉัน`
+
+## Super Admin
+- สมัครที่ `/login` ก่อน → แก้อีเมลใน `006_super_admin.sql` แล้วรัน → เข้า `/admin`
