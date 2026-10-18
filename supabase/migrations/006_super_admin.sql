@@ -15,4 +15,4 @@ revoke all on function public.admin_list_tenants(), public.admin_update_tenant(u
 grant execute on function public.is_platform_admin(), public.admin_list_tenants(), public.admin_update_tenant(uuid,text,text) to authenticated;
 
 -- ตั้ง Super Admin คนแรก: สมัครสมาชิกที่หน้า /login ก่อน แล้วแก้อีเมลด้านล่างก่อนรัน
-insert into platform_admins(user_id) select id from auth.users where email='takkynui@gmail.com' on conflict do nothing;
+insert into platform_admins(user_id) select id from auth.users where email='แก้เป็นอีเมลของคุณ@example.com' on conflict do nothing;
