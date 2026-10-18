@@ -10,3 +10,9 @@
 ## Phase 2 (ส่วนที่เหลือ)
 - รัน `003_phase2_complete.sql`, ตั้ง `LINE_CHANNEL_SECRET` แล้วตั้ง Webhook URL ใน LINE Developers เป็น `https://<โดเมน>/api/line/webhook`
 - ตั้งค่า PromptPay ที่หน้า "ตั้งค่าร้าน" จึงจะมี QR ในหน้าลูกค้า
+
+- รัน `004_phase2_reports.sql` (ทีมช่าง ค่าคอม ต้นทุนเพิ่ม)
+
+## Phase 3
+- รัน `005_phase3_ai.sql` และตั้ง `GEMINI_API_KEY` (เลือกโมเดลเองได้ด้วย `GEMINI_MODEL`)
+- ค้นหาร้านตามความหมาย: `GET /api/geo/search?q=ช่างไฟใกล้ฉัน`

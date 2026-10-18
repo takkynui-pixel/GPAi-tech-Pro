@@ -18,8 +18,9 @@ export default function Calendar() {
   async function add(){
     if(!f.job_id||!f.start) return;
     const st=new Date(f.start);
-    await db.from("job_schedules").insert({job_id:f.job_id,assigned_technician_id:f.tech||null,scheduled_start:st.toISOString(),scheduled_end:new Date(+st+36e5).toISOString(),
-      address:f.address,google_maps_url:f.address?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.address)}`:null});
+    const {data:sc}=await db.from("job_schedules").insert({job_id:f.job_id,assigned_technician_id:f.tech||null,scheduled_start:st.toISOString(),scheduled_end:new Date(+st+36e5).toISOString(),
+      address:f.address,google_maps_url:f.address?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.address)}`:null}).select("id").single();
+    if(f.tech){await db.from("jobs").update({assigned_technician_id:f.tech}).eq("id",f.job_id); if(sc) fetch("/api/line/notify-tech",{method:"POST",body:JSON.stringify({schedule_id:sc.id})});}
     setF({...f,job_id:"",start:"",address:""}); load();
   }
   const setStatus=async(id:string,status:string)=>{ await db.from("jobs").update({status}).eq("id",id); load(); };

@@ -7,15 +7,16 @@ type Item={product_id:string|null;item_name:string;quantity:number;unit_price:nu
 export default function NewJob() {
   const db=supabase(); const [cat,setCat]=useState("electric"); const [cust,setCust]=useState({name:"",phone:""});
   const [info,setInfo]=useState<Record<string,string>>({}); const [items,setItems]=useState<Item[]>([]); const [stock,setStock]=useState<any[]>([]);
-  const [warranty,setWarranty]=useState(30); const [link,setLink]=useState(""); const [msg,setMsg]=useState("");
+  const [warranty,setWarranty]=useState(30); const [extra,setExtra]=useState(0); const [link,setLink]=useState(""); const [msg,setMsg]=useState("");
   useEffect(()=>{db.from("products_inventory").select("*").eq("category",cat).then(({data})=>setStock(data??[]));},[cat]);
+  useEffect(()=>{const d=sessionStorage.getItem("ai_draft"); if(d){const v=JSON.parse(d); setCat(v.category); setItems(v.items); sessionStorage.removeItem("ai_draft");}},[]);
   const total=items.reduce((a,i)=>a+i.quantity*i.unit_price,0);
   const upd=(n:number,p:Partial<Item>)=>setItems(items.map((it,i)=>i===n?{...it,...p}:it));
   async function save(){
     setMsg("กำลังบันทึก...");
     const {data:c,error:e1}=await db.from("customers").insert(cust).select().single(); if(e1) return setMsg("บันทึกลูกค้าไม่สำเร็จ: "+e1.message);
     const {data:j,error:e2}=await db.from("jobs").insert({customer_id:c.id,category:cat,device_or_site_info:info,total_amount:total,
-      total_cost:items.reduce((a,i)=>a+i.quantity*i.unit_cost,0),warranty_days:warranty,status:"pending"}).select().single(); if(e2) return setMsg("บันทึกใบงานไม่สำเร็จ: "+e2.message);
+      total_cost:items.reduce((a,i)=>a+i.quantity*i.unit_cost,0),warranty_days:warranty,extra_cost:extra,status:"pending"}).select().single(); if(e2) return setMsg("บันทึกใบงานไม่สำเร็จ: "+e2.message);
     if(items.length) await db.from("job_items").insert(items.map(i=>({...i,job_id:j.id})));
     setLink(`${location.origin}/track/${j.public_share_token}`); setMsg("บันทึกแล้ว");
   }
@@ -36,6 +37,7 @@ export default function NewJob() {
           <option value="">+ เลือกจากสต๊อก</option>{stock.map(s=><option key={s.id} value={s.id}>{s.name} (เหลือ {s.stock_quantity})</option>)}</select>
         <button className="btn !bg-brand" onClick={()=>setItems([...items,{product_id:null,item_name:"ค่าแรง",quantity:1,unit_price:0,unit_cost:0}])}>+ ค่าแรง/รายการอื่น</button></div>
       <label className="block text-sm">รับประกัน (วัน)<select className="inp mt-1" value={warranty} onChange={e=>setWarranty(+e.target.value)}>{[0,7,30,90].map(d=><option key={d} value={d}>{d?d+" วัน":"ไม่มี"}</option>)}</select></label>
+      <label className="block text-sm">ค่าแรง/ค่าเดินทางที่เป็นต้นทุนร้าน (บาท)<input type="number" className="inp mt-1" value={extra} onChange={e=>setExtra(+e.target.value)}/></label>
       <p className="text-right text-2xl font-semibold">รวม {total.toLocaleString()} บาท</p></div>
     <button className="btn w-full text-lg" onClick={save} disabled={!cust.name||!items.length}>บันทึกและสร้างลิงก์ให้ลูกค้า</button>
     {msg && <p className="text-brand">{msg}</p>}

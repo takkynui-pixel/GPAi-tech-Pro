@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-const nav = [["/","ภาพรวม"],["/jobs","ใบงาน"],["/jobs/new","สร้างใบงาน"],["/calendar","ปฏิทินงาน"],["/inventory","สต๊อกอะไหล่"],["/settings","ตั้งค่าร้าน"]];
+const nav = [["/","ภาพรวม"],["/jobs","ใบงาน"],["/jobs/new","สร้างใบงาน"],["/calendar","ปฏิทินงาน"],["/ai-assistant","ผู้ช่วย AI"],["/inventory","สต๊อกอะไหล่"],["/reports","รายงานกำไร"],["/team","ทีมช่าง"],["/settings","ตั้งค่าร้าน"]];
 export default function Sidebar() {
   return (
     <aside className="flex w-full shrink-0 flex-col bg-brand text-white md:min-h-screen md:w-60">

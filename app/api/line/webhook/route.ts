@@ -13,6 +13,9 @@ export async function POST(req: Request) {
     const uid = ev.source?.userId; if (!uid) continue;
     if (ev.type === "follow") await reply(ev.replyToken, "ขอบคุณที่เพิ่มเพื่อนครับ พิมพ์เบอร์โทรที่ให้ไว้กับร้าน (10 หลัก) เพื่อรับแจ้งเตือนสถานะงานและรอบล้างแอร์");
     if (ev.type === "message" && ev.message?.type === "text") {
+      const m = ev.message.text.trim().match(/^ช่าง\s*([0-9a-f]{6})$/i);
+      if (m) { const { data } = await db.from("tenant_users").update({ line_user_id: uid }).eq("link_code", m[1].toLowerCase()).select("name");
+        await reply(ev.replyToken, data?.length ? `เชื่อม LINE ให้ ${data[0].name} แล้ว จะได้รับแจ้งงานที่มอบหมายทางนี้ครับ` : "ไม่พบรหัสช่าง โปรดตรวจสอบกับเจ้าของร้าน"); continue; }
       const phone = ev.message.text.replace(/\D/g, "");
       if (!/^0\d{9}$/.test(phone)) { await reply(ev.replyToken, "รบกวนพิมพ์เบอร์โทร 10 หลักครับ เช่น 0812345678"); continue; }
       const { data } = await db.from("customers").update({ line_id: uid }).eq("phone", phone).select("id");
