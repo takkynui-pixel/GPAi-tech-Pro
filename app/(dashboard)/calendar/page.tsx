@@ -33,15 +33,15 @@ export default function Calendar() {
       <input type="datetime-local" className="inp" value={f.start} onChange={e=>setF({...f,start:e.target.value})}/>
       <input className="inp" placeholder="ที่อยู่หน้างาน" value={f.address} onChange={e=>setF({...f,address:e.target.value})}/>
       <button className="btn md:col-span-2" onClick={add}>บันทึกนัดหมาย</button></div>
-    {Object.keys(days).length===0 && <p className="text-brand">ยังไม่มีนัดหมาย เพิ่มนัดแรกด้านบน</p>}
-    {Object.entries(days).map(([d,list])=><section key={d} className="space-y-3"><h2 className="font-medium text-brand">{d}</h2>
+    {Object.keys(days).length===0 && <p className="text-muted">ยังไม่มีนัดหมาย เพิ่มนัดแรกด้านบน</p>}
+    {Object.entries(days).map(([d,list])=><section key={d} className="space-y-3"><h2 className="font-medium text-muted">{d}</h2>
       {list.map(r=><div key={r.id} className="card space-y-2">
         <div className="flex justify-between"><p className="font-semibold">{new Date(r.scheduled_start).toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"})} · {r.jobs?.customers?.name}</p>
           <span className="rounded-full bg-brand-ice px-3 py-1 text-sm">{ST[r.jobs?.status]??r.jobs?.status}</span></div>
-        <p className="text-sm text-brand">{CATS[r.jobs?.category]} · ช่าง: {r.tenant_users?.name??"ยังไม่ระบุ"}{r.address?` · ${r.address}`:""}</p>
+        <p className="text-sm text-muted">{CATS[r.jobs?.category]} · ช่าง: {r.tenant_users?.name??"ยังไม่ระบุ"}{r.address?` · ${r.address}`:""}</p>
         <div className="flex flex-wrap gap-2">
-          {r.google_maps_url && <a className="btn !bg-brand" href={r.google_maps_url} target="_blank" rel="noreferrer">นำทาง</a>}
-          {r.jobs?.customers?.phone && <a className="btn !bg-brand" href={`tel:${r.jobs.customers.phone}`}>โทรหาลูกค้า</a>}
+          {r.google_maps_url && <a className="btn !bg-brand-ice !text-brand" href={r.google_maps_url} target="_blank" rel="noreferrer">นำทาง</a>}
+          {r.jobs?.customers?.phone && <a className="btn !bg-brand-ice !text-brand" href={`tel:${r.jobs.customers.phone}`}>โทรหาลูกค้า</a>}
           {r.jobs?.status==="pending" && <button className="btn" onClick={()=>setStatus(r.jobs.id,"in_progress")}>เริ่มงาน</button>}
           {r.jobs?.status==="in_progress" && <button className="btn" onClick={()=>setStatus(r.jobs.id,"completed")}>ปิดงาน</button>}
         </div></div>)}</section>)}

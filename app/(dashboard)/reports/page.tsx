@@ -26,13 +26,13 @@ export default function Reports() {
   return (<div className="mx-auto max-w-3xl space-y-5"><div className="flex items-center justify-between"><h1 className="text-2xl font-semibold">รายงานกำไร-ขาดทุน</h1>
     <input type="month" className="inp !w-auto" value={month} onChange={e=>setMonth(e.target.value)}/></div>
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">{[["รายรับ",rev],["ต้นทุนอะไหล่",parts],["ค่าแรง/เดินทาง",extra],["ค่าคอมช่าง",cm]].map(([l,v],i)=>
-      <div key={l as string} className={`rounded-2xl p-4 text-white shadow-card ${["bg-brand-sky","bg-brand","bg-brand-light !text-navy","bg-navy"][i]}`}><p className="text-sm">{l}</p><p className="mt-1 text-2xl font-semibold">{baht(v as number)}</p></div>)}</div>
+      <div key={l as string} className={`rounded-3xl p-4 shadow-card ${["bg-gradient-to-br from-brand to-brand-sky text-white","bg-white","bg-white","bg-white"][i]}`}><p className="text-sm">{l}</p><p className="mt-1 text-2xl font-semibold">{baht(v as number)}</p></div>)}</div>
     <div className="card flex items-center justify-between"><span className="font-medium">กำไรสุทธิ ({jobs.length} งาน)</span><span className={`text-3xl font-semibold ${net<0?"text-red-600":""}`}>{baht(net)} บาท</span></div>
     <div className="card space-y-2"><h2 className="font-medium">รายได้แยกหมวดช่าง</h2>{cats.map(([k,v])=><div key={k} className="flex items-center gap-3"><span className="w-28 text-sm">{CATS[k]}</span>
       <div className="h-4 flex-1 rounded-full bg-brand-ice"><div className="h-4 rounded-full bg-brand-sky" style={{width:`${v/mx*100}%`}}/></div><span className="w-20 text-right text-sm">{baht(v)}</span></div>)}</div>
-    <div className="card"><h2 className="mb-2 font-medium">ค่าคอม/ค่าตอบแทนช่าง</h2>{byTech.length===0?<p className="text-brand">ยังไม่มีงานที่มอบหมายให้ช่างในเดือนนี้</p>:byTech.map(t=>
+    <div className="card"><h2 className="mb-2 font-medium">ค่าคอม/ค่าตอบแทนช่าง</h2>{byTech.length===0?<p className="text-muted">ยังไม่มีงานที่มอบหมายให้ช่างในเดือนนี้</p>:byTech.map(t=>
       <p key={t.id} className="flex justify-between border-b border-brand-ice py-2"><span>{t.name} · {t.n} งาน · ยอดขาย {baht(t.sales)}</span><span className="font-semibold">{baht(t.pay)} บาท</span></p>)}</div>
-    <div className="card"><h2 className="mb-2 font-medium">อะไหล่ขายดี 10 อันดับ</h2>{top.length===0?<p className="text-brand">ยังไม่มีข้อมูล</p>:top.map(([n,p])=>
+    <div className="card"><h2 className="mb-2 font-medium">อะไหล่ขายดี 10 อันดับ</h2>{top.length===0?<p className="text-muted">ยังไม่มีข้อมูล</p>:top.map(([n,p])=>
       <p key={n} className="flex justify-between border-b border-brand-ice py-2"><span>{n} × {p.q}</span><span>ขาย {baht(p.rev)} · กำไร {baht(p.profit)}</span></p>)}</div>
   </div>);
 }

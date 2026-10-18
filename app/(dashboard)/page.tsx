@@ -14,9 +14,9 @@ export default async function Home() {
   return (<div className="space-y-6">
     <h1 className="text-2xl font-semibold">ภาพรวมวันนี้</h1>
     <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-      {stat.map(([l,v],i)=><div key={l as string} className={`rounded-2xl p-5 text-white shadow-card ${["bg-brand-sky","bg-brand","bg-brand-light text-navy","bg-navy"][i]}`}><p className="text-sm opacity-90">{l}</p><p className="mt-2 text-3xl font-semibold">{v}</p></div>)}
+      {stat.map(([l,v],i)=><div key={l as string} className={`rounded-3xl p-5 shadow-card ${["bg-gradient-to-br from-brand to-brand-sky text-white","bg-white","bg-white","bg-white"][i]}`}><p className="text-sm opacity-90">{l}</p><p className="mt-2 text-3xl font-semibold">{v}</p></div>)}
     </div>
     <div className="card"><h2 className="mb-3 font-medium">อะไหล่ใกล้หมด</h2>
-      {low?.length ? low.map(p=><p key={p.id} className="flex justify-between border-b border-brand-ice py-2"><span>{p.name}</span><span className="font-medium text-red-600">เหลือ {p.stock_quantity} {p.unit}</span></p>) : <p className="text-brand">สต๊อกปกติทุกรายการ</p>}
+      {low?.length ? low.map(p=><p key={p.id} className="flex justify-between border-b border-brand-ice py-2"><span>{p.name}</span><span className="font-medium text-red-600">เหลือ {p.stock_quantity} {p.unit}</span></p>) : <p className="text-muted">สต๊อกปกติทุกรายการ</p>}
     </div></div>);
 }

@@ -22,17 +22,17 @@ export default function AI() {
       <textarea className="inp" rows={3} placeholder="เช่น ล้างแอร์ติดผนัง 12000 BTU 2 เครื่อง เปลี่ยนแคป 1 ตัว" value={say} onChange={e=>setSay(e.target.value)}/>
       <div className="flex gap-2">{SR && <button className={`btn ${listening?"!bg-red-600":""}`} onClick={mic}>{listening?"หยุดฟัง":"กดพูด"}</button>}
         <button className="btn flex-1" disabled={!say||busy==="quote"} onClick={quote}>{busy==="quote"?"กำลังสร้าง...":"สร้างรายการใบเสนอราคา"}</button></div>
-      {!SR && <p className="text-sm text-brand">เบราว์เซอร์นี้ไม่รองรับการพูด พิมพ์ข้อความแทนได้</p>}</section>
+      {!SR && <p className="text-sm text-muted">เบราว์เซอร์นี้ไม่รองรับการพูด พิมพ์ข้อความแทนได้</p>}</section>
     <section className="card space-y-3"><h2 className="font-medium">วิเคราะห์อาการเสีย</h2>
       <select className="inp" value={cat} onChange={e=>setCat(e.target.value)}>{Object.entries(CATS).map(([k,v])=><option key={k} value={k}>{v}</option>)}</select>
       <textarea className="inp" rows={3} placeholder="อาการ หรือรหัส Error เช่น แอร์ขึ้น E1 ไม่เย็น" value={symptom} onChange={e=>setSymptom(e.target.value)}/>
       <input type="file" accept="image/*" capture="environment" className="inp" onChange={async e=>{const f=e.target.files?.[0]; setImg(f?await shrink(f):"");}}/>
       <button className="btn w-full" disabled={(!symptom&&!img)||busy==="diag"} onClick={diagnose}>{busy==="diag"?"กำลังวิเคราะห์...":"วิเคราะห์"}</button>
-      {res && <div className="space-y-3 rounded-xl bg-brand-bg p-4"><p className="text-sm text-brand">ความมั่นใจ: {res.confidence}</p>
+      {res && <div className="space-y-3 rounded-xl bg-brand-bg p-4"><p className="text-sm text-muted">ความมั่นใจ: {res.confidence}</p>
         <L t="สาเหตุที่เป็นไปได้" a={res.likely_causes}/><L t="ขั้นตอนตรวจเช็ค" a={res.checks}/><L t="อะไหล่ที่ควรเตรียม" a={res.suggested_parts}/><L t="เครื่องมือ" a={res.tools}/>
         {res.est_minutes>0 && <p>เวลาโดยประมาณ {res.est_minutes} นาที</p>}{res.safety_note && <p className="font-medium text-red-700">{res.safety_note}</p>}
-        <p className="text-xs text-brand">ผลจาก AI เป็นข้อมูลประกอบ ช่างต้องตรวจยืนยันหน้างานก่อนเสนอราคา</p></div>}</section>
-    <section className="card space-y-2"><h2 className="font-medium">ให้ AI Search ค้นเจอร้านคุณ</h2><p className="text-sm text-brand">อัปเดตข้อมูลร้านและงานที่ทำบ่อยให้ระบบค้นหาตามความหมาย</p>
-      <button className="btn" disabled={busy==="idx"} onClick={reindex}>อัปเดตข้อมูลร้านสำหรับ AI Search</button>{idx && <p className="text-brand">{idx}</p>}</section>
+        <p className="text-xs text-muted">ผลจาก AI เป็นข้อมูลประกอบ ช่างต้องตรวจยืนยันหน้างานก่อนเสนอราคา</p></div>}</section>
+    <section className="card space-y-2"><h2 className="font-medium">ให้ AI Search ค้นเจอร้านคุณ</h2><p className="text-sm text-muted">อัปเดตข้อมูลร้านและงานที่ทำบ่อยให้ระบบค้นหาตามความหมาย</p>
+      <button className="btn" disabled={busy==="idx"} onClick={reindex}>อัปเดตข้อมูลร้านสำหรับ AI Search</button>{idx && <p className="text-muted">{idx}</p>}</section>
   </div>);
 }

@@ -1,5 +1,5 @@
 @tailwind base;@tailwind components;@tailwind utilities;
 body{@apply bg-brand-bg text-navy font-sans}
-.inp{@apply w-full rounded-xl border border-brand-ice bg-white px-4 py-3 text-base outline-none focus:ring-2 focus:ring-brand-sky}
-.btn{@apply rounded-xl bg-brand-sky px-5 py-3 font-medium text-white hover:bg-brand transition-colors focus-visible:ring-2 focus-visible:ring-navy}
-.card{@apply rounded-2xl bg-white p-5 shadow-card}
+.inp{@apply w-full rounded-2xl border border-brand-ice bg-white px-4 py-3 text-base outline-none focus:border-brand-sky focus:ring-2 focus:ring-brand-light/50}
+.btn{@apply rounded-full bg-brand px-5 py-3 font-medium text-white transition-colors hover:bg-brand-dark focus-visible:ring-2 focus-visible:ring-brand-light disabled:opacity-60}
+.card{@apply rounded-3xl bg-white p-5 shadow-card}

@@ -18,9 +18,9 @@ export default function Inventory() {
         <label key={k} className="text-sm">{l}<input type="number" className="inp mt-1" value={(f as any)[k]} onChange={e=>setF({...f,[k]:+e.target.value})}/></label>)}
       <button className="btn md:col-span-4" onClick={add}>เพิ่มอะไหล่</button></div>
     <div className="card divide-y divide-brand-ice">
-      {rows.length===0 && <p className="text-brand">ยังไม่มีอะไหล่ เพิ่มรายการแรกด้านบน</p>}
+      {rows.length===0 && <p className="text-muted">ยังไม่มีอะไหล่ เพิ่มรายการแรกด้านบน</p>}
       {rows.map(p=><div key={p.id} className="flex items-center justify-between gap-3 py-3">
-        <div><p className="font-medium">{p.name}</p><p className="text-sm text-brand">{CATS[p.category as keyof typeof CATS]} · ทุน {p.cost_price} · ขาย {p.selling_price}</p></div>
+        <div><p className="font-medium">{p.name}</p><p className="text-sm text-muted">{CATS[p.category as keyof typeof CATS]} · ทุน {p.cost_price} · ขาย {p.selling_price}</p></div>
         <div className="flex items-center gap-2"><button className="btn !px-4" onClick={()=>adj(p,-1)} aria-label="ลด">−</button>
           <span className={`w-20 text-center font-semibold ${p.stock_quantity<=p.min_stock_alert?"text-red-600":""}`}>{p.stock_quantity} {p.unit}</span>
           <button className="btn !px-4" onClick={()=>adj(p,1)} aria-label="เพิ่ม">+</button></div></div>)}

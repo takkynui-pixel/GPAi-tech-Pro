@@ -30,12 +30,12 @@ export default function Login() {
       location.href="/";
     } catch (e:any) { setErr(e.message ?? "เกิดข้อผิดพลาด"); setBusy(false); }
   }
-  return (<main className="grid min-h-screen place-items-center bg-brand p-4"><div className="w-full max-w-sm space-y-3 rounded-2xl bg-white p-6 shadow-card">
+  return (<main className="grid min-h-screen place-items-center bg-brand-bg p-4"><div className="w-full max-w-sm space-y-3 rounded-2xl bg-white p-6 shadow-card">
     <Image src="/logo.png" alt="GPAi-tech" width={400} height={70} priority/>
     {reg && <input className="inp" placeholder="ชื่อร้าน / ชื่อช่าง" value={shop} onChange={e=>setShop(e.target.value)}/>}
     <input className="inp" type="email" placeholder="อีเมล" value={email} onChange={e=>setE(e.target.value)}/>
     <input className="inp" type="password" placeholder="รหัสผ่าน (อย่างน้อย 6 ตัว)" value={pw} onChange={e=>setP(e.target.value)}/>
-    {err && <p className="text-red-600">{err}</p>}{info && <p className="text-brand">{info}</p>}
+    {err && <p className="text-red-600">{err}</p>}{info && <p className="text-muted">{info}</p>}
     <button className="btn w-full disabled:opacity-60" disabled={busy} onClick={go}>{busy?"กำลังดำเนินการ...":reg?"สมัครและเริ่มใช้งาน":"เข้าสู่ระบบ"}</button>
-    <button className="w-full text-brand" onClick={()=>{setReg(!reg);setErr("");setInfo("");}}>{reg?"มีบัญชีแล้ว เข้าสู่ระบบ":"ยังไม่มีบัญชี สมัครร้านใหม่"}</button></div></main>);
+    <button className="w-full text-muted" onClick={()=>{setReg(!reg);setErr("");setInfo("");}}>{reg?"มีบัญชีแล้ว เข้าสู่ระบบ":"ยังไม่มีบัญชี สมัครร้านใหม่"}</button></div></main>);
 }

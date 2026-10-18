@@ -13,5 +13,5 @@ export default function Team() {
     <div className="card divide-y divide-brand-ice">{rows.map(t=><div key={t.id} className="space-y-1 py-3">
       <div className="flex items-center justify-between gap-3"><p className="font-medium">{t.name} {t.role==="owner"&&"(เจ้าของ)"}</p>
         <label className="flex items-center gap-2 text-sm">ค่าคอม %<input type="number" className="inp !w-24 !py-2" defaultValue={t.commission_rate} onBlur={e=>setR(t.id,+e.target.value)}/></label></div>
-      <p className="text-sm text-brand">{t.line_user_id?"เชื่อม LINE แล้ว":`ผูก LINE: ให้ช่างแอดบอทแล้วพิมพ์ ช่าง ${t.link_code}`}</p></div>)}</div></div>);
+      <p className="text-sm text-muted">{t.line_user_id?"เชื่อม LINE แล้ว":`ผูก LINE: ให้ช่างแอดบอทแล้วพิมพ์ ช่าง ${t.link_code}`}</p></div>)}</div></div>);
 }
