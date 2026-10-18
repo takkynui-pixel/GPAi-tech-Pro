@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-const nav = [["/","ภาพรวม"],["/jobs/new","สร้างใบงาน"],["/inventory","สต๊อกอะไหล่"]];
+const nav = [["/","ภาพรวม"],["/jobs/new","สร้างใบงาน"],["/calendar","ปฏิทินงาน"],["/inventory","สต๊อกอะไหล่"]];
 export default function Sidebar() {
   return (
     <aside className="flex w-full shrink-0 flex-col bg-brand text-white md:min-h-screen md:w-60">
