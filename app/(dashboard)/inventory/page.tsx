@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
+import Stepper from "@/components/Stepper";
 const CATS = {electric:"ไฟฟ้า",air:"แอร์",mobile:"มือถือ",computer:"คอมพิวเตอร์"} as const;
 export default function Inventory() {
   const db = supabase(); const [rows,setRows]=useState<any[]>([]);
@@ -15,7 +16,7 @@ export default function Inventory() {
       <select className="inp" value={f.category} onChange={e=>setF({...f,category:e.target.value})}>{Object.entries(CATS).map(([k,v])=><option key={k} value={k}>{v}</option>)}</select>
       <input className="inp" placeholder="หน่วย" value={f.unit} onChange={e=>setF({...f,unit:e.target.value})}/>
       {([["cost_price","ราคาทุน"],["selling_price","ราคาขาย"],["stock_quantity","จำนวน"],["min_stock_alert","เตือนเมื่อต่ำกว่า"]] as const).map(([k,l])=>
-        <label key={k} className="text-sm">{l}<input type="number" className="inp mt-1" value={(f as any)[k]} onChange={e=>setF({...f,[k]:+e.target.value})}/></label>)}
+        <div key={k} className="min-w-0 text-sm">{l}<Stepper value={(f as any)[k]} onChange={v=>setF({...f,[k]:v})}/></div>)}
       <button className="btn md:col-span-4" onClick={add}>เพิ่มอะไหล่</button></div>
     <div className="card divide-y divide-brand-ice">
       {rows.length===0 && <p className="text-muted">ยังไม่มีอะไหล่ เพิ่มรายการแรกด้านบน</p>}

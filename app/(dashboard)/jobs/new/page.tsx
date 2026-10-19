@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
+import Stepper from "@/components/Stepper";
 const CATS:Record<string,string>={electric:"ช่างไฟฟ้า",air:"ช่างแอร์",mobile:"ซ่อมมือถือ",computer:"ซ่อมคอมพิวเตอร์"};
 const INFO:Record<string,string[]>={electric:["จำนวนจุด","โหมดคิดราคา (เหมา/ตามจุด)"],air:["ยี่ห้อ","BTU","ชนิดน้ำยา (R32/R410A)"],mobile:["รุ่น","IMEI/Serial","สภาพเครื่องก่อนรับ"],computer:["สเปกเครื่อง","สำรองข้อมูลแล้ว (ใช่/ไม่)"]};
 type Item={product_id:string|null;item_name:string;quantity:number;unit_price:number;unit_cost:number};
@@ -29,9 +30,10 @@ export default function NewJob() {
     <div className="card grid gap-3"><h2 className="font-medium">ข้อมูลเฉพาะ{CATS[cat]}</h2>
       {INFO[cat].map(k=><input key={k} className="inp" placeholder={k} value={info[k]??""} onChange={e=>setInfo({...info,[k]:e.target.value})}/>)}</div>
     <div className="card space-y-3"><h2 className="font-medium">รายการงาน / อะไหล่</h2>
-      {items.map((it,n)=><div key={n} className="grid grid-cols-6 gap-2"><input className="inp col-span-3" value={it.item_name} onChange={e=>upd(n,{item_name:e.target.value})}/>
-        <input type="number" className="inp" value={it.quantity} onChange={e=>upd(n,{quantity:+e.target.value})}/>
-        <input type="number" className="inp col-span-2" value={it.unit_price} onChange={e=>upd(n,{unit_price:+e.target.value})}/></div>)}
+      {items.map((it,n)=><div key={n} className="grid grid-cols-2 gap-2 rounded-2xl bg-brand-bg p-3">
+        <input className="inp col-span-2" value={it.item_name} onChange={e=>upd(n,{item_name:e.target.value})}/>
+        <div className="min-w-0"><p className="text-xs text-muted">จำนวน</p><Stepper value={it.quantity} min={1} onChange={v=>upd(n,{quantity:v})}/></div>
+        <div className="min-w-0"><p className="text-xs text-muted">ราคา/หน่วย (บาท)</p><input type="number" inputMode="decimal" className="inp mt-1" value={it.unit_price} onChange={e=>upd(n,{unit_price:+e.target.value})}/></div></div>)}
       <div className="flex flex-wrap gap-2">
         <select className="inp !w-auto" value="" onChange={e=>{const p=stock.find(s=>s.id===e.target.value); if(p) setItems([...items,{product_id:p.id,item_name:p.name,quantity:1,unit_price:p.selling_price,unit_cost:p.cost_price}]);}}>
           <option value="">+ เลือกจากสต๊อก</option>{stock.map(s=><option key={s.id} value={s.id}>{s.name} (เหลือ {s.stock_quantity})</option>)}</select>

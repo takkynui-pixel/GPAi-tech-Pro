@@ -3,3 +3,7 @@ body{@apply bg-brand-bg text-navy font-sans}
 .inp{@apply w-full rounded-2xl border border-brand-ice bg-white px-4 py-3 text-base outline-none focus:border-brand-sky focus:ring-2 focus:ring-brand-light/50}
 .btn{@apply rounded-full bg-brand px-5 py-3 font-medium text-white transition-colors hover:bg-brand-dark focus-visible:ring-2 focus-visible:ring-brand-light disabled:opacity-60}
 .card{@apply rounded-3xl bg-white p-5 shadow-card}
+.inp{min-width:0;max-width:100%}
+input.inp[type="datetime-local"],input.inp[type="date"],input.inp[type="month"]{-webkit-appearance:none;appearance:none;display:block;width:100%;text-align:left;min-height:3.25rem}
+input::-webkit-date-and-time-value{text-align:left}
+html,body{overflow-x:clip}
