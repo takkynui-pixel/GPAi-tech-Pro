@@ -7,3 +7,5 @@ body{@apply bg-brand-bg text-navy font-sans}
 input.inp[type="datetime-local"],input.inp[type="date"],input.inp[type="month"]{-webkit-appearance:none;appearance:none;display:block;width:100%;text-align:left;min-height:3.25rem}
 input::-webkit-date-and-time-value{text-align:left}
 html,body{overflow-x:clip}
+
+@media print{ body{background:#fff} @page{margin:12mm} }

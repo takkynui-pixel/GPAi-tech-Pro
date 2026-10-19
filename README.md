@@ -19,3 +19,5 @@
 
 ## Super Admin
 - สมัครที่ `/login` ก่อน → แก้อีเมลใน `006_super_admin.sql` แล้วรัน → เข้า `/admin`
+
+- รัน `009_formal_documents.sql` (เอกสารทางการ: เลขที่เอกสาร VAT ส่วนลด ข้อมูลบัญชี)
