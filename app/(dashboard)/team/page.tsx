@@ -5,7 +5,7 @@ import Stepper from "@/components/Stepper";
 export default function Team() {
   const db=supabase(); const [rows,setRows]=useState<any[]>([]); const [name,setName]=useState(""); const [rate,setRate]=useState(10);
   const [draft,setDraft]=useState<Record<string,number>>({}); const [err,setErr]=useState(""); const [busy,setBusy]=useState(false);
-  const load=async()=>{const {data,error}=await db.from("tenant_users").select("*").order("created_at"); if(error) setErr(error.message); setRows(data??[]);};
+  const load=async()=>{const {data,error}=await db.from("tenant_users").select("*"); if(error) setErr(error.message); setRows((data??[]).sort((x:any,y:any)=>(x.role==="owner"?0:1)-(y.role==="owner"?0:1)||String(x.name).localeCompare(String(y.name))));};
   useEffect(()=>{load();},[]);
   const add=async()=>{ if(!name.trim()) return; setBusy(true); setErr(""); const {error}=await db.rpc("add_team_member",{p_name:name.trim(),p_rate:rate}); setBusy(false);
     if(error) return setErr(error.message); setName(""); load(); };

@@ -1,5 +1,6 @@
 -- ทำให้ทีมช่างใช้งานได้แม้ยังไม่ได้รัน 004 (รันซ้ำได้)
 alter table tenant_users alter column user_id drop not null;
+alter table tenant_users add column if not exists created_at timestamptz default now();
 alter table tenant_users add column if not exists commission_rate numeric(5,2) default 0;
 alter table tenant_users add column if not exists link_code text default substr(md5(random()::text),1,6);
 update tenant_users set link_code=substr(md5(random()::text||id::text),1,6) where link_code is null;
