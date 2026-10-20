@@ -21,3 +21,7 @@
 - สมัครที่ `/login` ก่อน → แก้อีเมลใน `006_super_admin.sql` แล้วรัน → เข้า `/admin`
 
 - รัน `009_formal_documents.sql` (เอกสารทางการ: เลขที่เอกสาร VAT ส่วนลด ข้อมูลบัญชี)
+
+## LINE แบบผสม
+- รัน `010_line_hybrid_team_security.sql`
+- ตั้ง env: `LINE_CRED_KEY` (ข้อความสุ่มยาว เก็บให้ดี ห้ามเปลี่ยนหลังเริ่มใช้) และ `NEXT_PUBLIC_LINE_BOT_BASIC_ID` (เช่น @123abcde)
