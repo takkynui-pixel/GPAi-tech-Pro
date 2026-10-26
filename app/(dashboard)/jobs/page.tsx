@@ -33,6 +33,7 @@ export default function Jobs() {
       <p className="text-muted">{Number(j.total_amount).toLocaleString()} บาท{k!=="receipt"&&k!=="cancel"?` · ${j.payment_status==="paid"?"ชำระแล้ว":"ยังไม่ชำระ"}`:""}{j.customer_approved_at?" · ลูกค้าอนุมัติแล้ว":""}</p>
       <div className="flex flex-wrap gap-2">
         {j.status!=="completed" && j.status!=="cancelled" && <button className="btn" onClick={()=>upd(j.id,{status:"completed"})}>ปิดงาน</button>}
+        {k==="quote" && !j.customer_approved_at && <Link href={`/jobs/${j.id}/edit`} className="btn !bg-brand-ice !text-brand">แก้ไขใบเสนอราคา</Link>}
         {j.payment_status!=="paid" && j.status!=="cancelled" && <button className={`btn ${j.status==="completed"?"":"!bg-brand-ice !text-brand"}`} onClick={()=>upd(j.id,{payment_status:"paid"})}>รับชำระแล้ว</button>}
         {k!=="cancel" && <button className="btn !bg-brand-ice !text-brand" disabled={sending===j.id} onClick={()=>sendLine(j)}>{sending===j.id?"กำลังส่ง...":`ส่ง${KIND[k].doc} ทาง LINE`}</button>}
         <a className="btn !bg-brand-ice !text-brand" href={link} target="_blank" rel="noreferrer">ดูหน้าลูกค้า</a></div></div>;})}

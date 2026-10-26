@@ -32,7 +32,7 @@ export default async function Track({ params }:{params:{token:string}}) {
     <article className="rounded-3xl bg-white p-5 shadow-card print:rounded-none print:p-0 print:shadow-none md:p-8">
       <header className="flex items-start justify-between gap-4 border-b border-brand pb-4">
         <div className="min-w-0">{data.logo_url ? <img src={data.logo_url} alt={data.shop_name} className="max-h-16 max-w-[180px] object-contain"/> : <p className="text-xl font-semibold text-brand">{data.shop_name}</p>}</div>
-        <div className="shrink-0 text-right"><h1 className="text-2xl font-semibold text-brand md:text-3xl">{kind.th}</h1><p className="font-medium text-brand">{kind.en}</p><p className="mt-1 text-sm">เลขที่ : {docNo}</p></div>
+        <div className="shrink-0 text-right"><h1 className="text-2xl font-semibold text-brand md:text-3xl">{kind.th}</h1><p className="font-medium text-brand">{kind.en}</p><p className="mt-1 text-sm">เลขที่ : {docNo}</p>{Number(data.revision)>0 && <p className="text-xs text-muted">ฉบับแก้ไขครั้งที่ {data.revision}</p>}</div>
       </header>
 
       <section className="mt-4 text-sm">

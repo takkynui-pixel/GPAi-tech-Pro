@@ -25,3 +25,5 @@
 ## LINE แบบผสม
 - รัน `010_line_hybrid_team_security.sql`
 - ตั้ง env: `LINE_CRED_KEY` (ข้อความสุ่มยาว เก็บให้ดี ห้ามเปลี่ยนหลังเริ่มใช้) และ `NEXT_PUBLIC_LINE_BOT_BASIC_ID` (เช่น @123abcde)
+
+- รัน `011_edit_quote.sql` (แก้ไขใบเสนอราคาก่อนลูกค้าอนุมัติ)
