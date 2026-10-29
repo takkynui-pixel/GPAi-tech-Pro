@@ -29,9 +29,10 @@ export async function handleEvents(db: SupabaseClient, events: any[], token: str
       const { data } = await q.select("name"); await reply(token, ev.replyToken, data?.length ? `เชื่อม LINE ให้ ${data[0].name} แล้ว จะได้รับแจ้งงานที่มอบหมายทางนี้ครับ` : "ไม่พบรหัสช่าง โปรดตรวจสอบกับเจ้าของร้าน"); continue; }
     let tid = tenantId, phoneRaw = text;
     if (!tid) { const m = text.match(/^ร้าน\s*([0-9a-f]{6})\s+(.+)$/i);
-      if (!m) { await reply(token, ev.replyToken, "กรุณาพิมพ์ในรูปแบบ \"ร้าน <รหัสร้าน> <เบอร์โทร>\" เช่น ร้าน a1b2c3 0812345678 (ขอรหัสร้านจากร้านที่ใช้บริการ)"); continue; }
+      if (!m) { if (/^ร้าน/.test(text)) await reply(token, ev.replyToken, "กรุณาพิมพ์ในรูปแบบ \"ร้าน <รหัสร้าน> <เบอร์โทร>\" เช่น ร้าน a1b2c3 0812345678 (ขอรหัสร้านจากร้านที่ใช้บริการ)"); continue; } // ข้อความทั่วไป: เงียบ
       const { data: t } = await db.from("tenants").select("id").eq("line_code", m[1].toLowerCase()).maybeSingle(); if (!t) { await reply(token, ev.replyToken, "ไม่พบรหัสร้านนี้ โปรดตรวจสอบกับทางร้านครับ"); continue; }
       tid = t.id; phoneRaw = m[2]; }
+    if (tenantId && !/^[\d\s\-+()]+$/.test(text)) continue; // โหมด OA ของร้าน: ตอบเฉพาะข้อความที่เป็นเบอร์โทร ข้อความอื่นเงียบ
     const phone = phoneRaw.replace(/\D/g, "");
     if (!/^0\d{9}$/.test(phone)) { await reply(token, ev.replyToken, "รบกวนระบุเบอร์โทร 10 หลักครับ เช่น 0812345678"); continue; }
     const { data } = await db.from("customers").update({ line_id: uid }).eq("tenant_id", tid).eq("phone", phone).select("id");
